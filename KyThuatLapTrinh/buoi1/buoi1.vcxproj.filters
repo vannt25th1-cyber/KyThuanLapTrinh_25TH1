@@ -18,5 +18,13 @@
     <ClCompile Include="buoi1.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ebe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ebe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

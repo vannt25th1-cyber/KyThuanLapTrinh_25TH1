@@ -6,6 +6,21 @@ using namespace std;
 struct Person {
     int id;
     string name;
+	friend ostream& operator << (ostream& os , const Person& p) {
+		os << "\t+ Id: " << p.id << endl;
+		os << "\t+ Name: " << p.name << endl;
+		return os;
+
+	}
+	friend istream& operator >> (istream& in, Person& p) {
+		cout << "Input person information: " << endl;
+		cout << "\t+ Id: ";
+		in >> p.id;
+		cout << "\t+ Name: ";
+		in >> p.name;
+		return in;
+
+	}
 };
 
 struct  Node {

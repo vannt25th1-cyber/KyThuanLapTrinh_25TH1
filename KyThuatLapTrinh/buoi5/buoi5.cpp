@@ -1,17 +1,27 @@
 
 
 #include <iostream>
+#include <string>
 using namespace std;
 
-struct Athor {
+struct Author {
     int id;
     string name;
+    friend istream& operator >> (istream& in, Author& a) {
+        cout << "Author information: " << endl;
+        cout << "\t+ Id: ";
+        in >> a.id;
+        cout << "\t+ Name: ";
+        in.ignore();
+        getline(in, a.name);
+        return in;
+    }
 };
 
 struct Book {
     int id;
     string name;
-    Athor author;
+    Author author;
     friend ostream& operator << (ostream& os, const Book& b) {
         os << "Book information: " << endl;
         os << "\t+ Id:" << b.id << endl;
@@ -19,28 +29,46 @@ struct Book {
         os << "\t+ Author name:" << b.author.name << endl;
         return os;
     }
-};
+    friend istream& operator << (ostream& os, const Book& b) {
+        cout << "Book information: " << endl;
+        cout << "\t+ Id:";
+        in >> b.id;
+        cout << "\t+ Name:";
+        in.ignore();
+        getLine(in, b.name);
+        in >> b.author;
+        return in;
+    };
 
-struct Node {
-    Book data;
-    Node* next;
+    struct Node {
+        Book data;
+        Node* next;
+        void Create(Book b) {
+            data = b;
+            next = nullptr;
+        }
+    };
 
-};
-
-struct LinkedList {
-    Node* head;
-};
-void Show(LinkedList books) {
-    if (books.head == NULL) {
-        cout << "No book available" << endl;
-        return;
+    struct LinkedList {
+        Node* head;
+    };
+    void Show(LinkedList books) {
+        if (books.head == NULL) {
+            cout << "No book available" << endl;
+            return;
+        }
+        Node* item = books.head;
+        while (item != NULL) {
+            cout << item->data;
+            item = item->next;
+        }
     }
-    Node* item = books.head;
-    while (item != NULL) {
-        cout << item->data;
-        item = item->next;
+    void AddFirst(Node* p) {
+        p->next = head;
+        head = p;
     }
-}
+};
+
 int main()
 {
     LinkedList books = { NULL };
@@ -62,10 +90,15 @@ int main()
         switch (choice)
         {
         case 1: {
-            Show(books);
+            books.Show();
             break;
         }
         case 2: {
+            Book b;
+            cin >> b;
+            Node* newNode = new Node;
+            newNode->Create(b);
+            books.AddFirst(newNode);
             break;
         }
         case 3: {

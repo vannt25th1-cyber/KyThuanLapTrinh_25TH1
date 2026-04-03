@@ -26,7 +26,10 @@ struct Person {
 struct  Node {
     Person data;
     Node* next;
+	Node(Person X) : data(X), next(nullptr) {}
 };
+
+
 struct LinkedList {
 	Node* head;
 	void Show() {
@@ -41,6 +44,32 @@ struct LinkedList {
 			item = item->next;
 		}
 	}
+
+void Add(Person x) {
+	Node* newNode = new Node(x);
+	newNode->next = head;
+	head = newNode;
+}
+bool Remove(int x) {
+	if (head == NULL) {
+		return false;
+	}
+	Node* item = head;
+	if (item->data.id == x) {
+		head = item->next;
+		delete item;
+		return true;
+	}
+	while (item->next != NULL) {
+		if (item->next->data.id == x) {
+			Node* temp = item->next;
+			item->next = temp->next;
+			delete temp;
+			return true;
+		}
+		item = item->next;
+	}
+}
 };
 
 int main() {
@@ -73,6 +102,11 @@ int main() {
 			int id;
 			cout << "Input ID to remove: ";
 			cin >> id;
+			bool res = list.Remove(id);
+			if (res)
+				cout << "Remove a person successfully" << endl;
+			else
+				cout << "Person isn't found" << endl;
 			break;
 		}
 		case 4: {

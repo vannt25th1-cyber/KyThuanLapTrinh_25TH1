@@ -13,3 +13,11 @@ struct LinkedList {
 	Node<T>* head;
 	void Show();
 };
+template<typename T>
+void LinkedList<T>::Show() {
+	if (head == NULL) {
+		cout << "No item available" << endl;
+		return;
+	}
+	Node
+}
